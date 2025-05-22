@@ -1,0 +1,438 @@
+/* Base Styles */
+:root {
+  --primary: #103962; /* STB Blue */
+  --primary-rgb: 16, 57, 98;
+  --white: #ffffff;
+  --gold: #f2c94c;
+  --gold-rgb: 242, 201, 76;
+  --dark-text: #222222;
+  --medium-gray: #616161;
+  --background-gray: #f5f5f5;
+  --light-blue: #d1d8e2;
+  --border-radius: 0.5rem;
+  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition-duration: 300ms;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* Ajuste la taille du logo */
+.h-10 {
+  height: 70px; /* = 48px au lieu de 40px */
+  width: auto; /* Garde le ratio d'image */
+}
+
+/* Optionnel : Si tu veux limiter la taille max sur grands écrans */
+@media (min-width: 768px) {
+  .h-10 {
+    height: 70px; /* = 56px sur desktop */
+  }
+}
+body {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  background-color: var(--background-gray);
+  color: var(--dark-text);
+  line-height: 1.5;
+  font-size: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mr-1\.5 {
+  margin-right: 0.375rem;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem;
+}
+
+.space-x-2 > * + * {
+  margin-left: 0.5rem;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+/* Flex & Grid */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+/* Typography */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Elements */
+.bg-white {
+  background-color: var(--white);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}
+
+.shadow-md {
+  box-shadow: var(--box-shadow);
+}
+
+.border-t {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-white\/30 {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
+
+/* Header & Navigation */
+.fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-6,
+.w-6 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.h-4,
+.w-4 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: all var(--transition-duration);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--gold);
+  color: var(--primary);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--primary);
+}
+
+/* Cards */
+.card {
+  background-color: var(--primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  height: 16rem;
+  transition: all var(--transition-duration);
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+/* Dashboard */
+.card-dashboard {
+  background-color: var(--primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.card-dashboard-content {
+  padding: 1.5rem;
+}
+
+.dashboard-embed {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  border: 1px solid var(--primary);
+  border-style: dashed;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.dashboard-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.dashboard-code {
+  background-color: var(--white);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--primary);
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* Custom Icon Styles */
+.dashboard-icon,
+.clustering-icon {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.absolute-top-right {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+}
+
+.absolute-bottom-left {
+  position: absolute;
+  bottom: 0.25rem;
+  left: 0.25rem;
+}
+
+/* Utilities */
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:w-auto {
+    width: auto;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

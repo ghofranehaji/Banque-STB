@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <title>STB Bank - Modèle Clustering</title>
+    <meta
+      name="description"
+      content="Visualisations des modèles de clustering pour la banque STB"
+    />
+    <meta property="og:title" content="STB Bank - Modèle Clustering" />
+    <meta
+      property="og:description"
+      content="Résultats des algorithmes de clustering DBSCAN, K-Means et hiérarchique"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="C:\Users\Ayoub Hajji\Desktop\stbbank\bank.css"
+    />
+    <style>
+      /* Tabs Specific Styles */
+      .tabs {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tabs-list {
+        display: flex;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 1.5rem;
+        overflow-x: auto;
+      }
+
+      .tab-trigger {
+        padding: 0.5rem 1rem;
+        background: transparent;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+      }
+
+      .tab-trigger.active {
+        background-color: white;
+        color: #103962;
+        border-bottom: 2px solid white;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .algorithm-content {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        border: 1px solid #103962;
+        min-height: 500px;
+        color: #103962;
+      }
+
+      .algorithm-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .algorithm-icon {
+        margin-right: 1rem;
+        position: relative;
+        width: 4rem;
+        height: 4rem;
+      }
+
+      .algorithm-info h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .algorithm-info p {
+        color: rgba(16, 57, 98, 0.7);
+      }
+
+      .visualization-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 20rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px dashed rgba(16, 57, 98, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Header -->
+      <header class="bg-white text-primary shadow-md fixed top-0 w-full z-10">
+        <div
+          class="container mx-auto px-4 py-3 flex justify-between items-center"
+        >
+          <div class="flex items-center justify-center w-full md:w-auto">
+            <a href="/" class="flex items-center space-x-2 cursor-pointer">
+              <img
+                src="C:\Users\Ayoub Hajji\Desktop\stbbank\final logo stb.png"
+                alt="STB Bank Logo"
+                class="h-10"
+              />
+            </a>
+          </div>
+
+          <nav class="hidden md:flex items-center space-x-4">
+            <a href="C:\Users\Ayoub Hajji\Desktop\stbbank\index.html">
+              <button class="btn btn-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <path
+                    d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Accueil
+              </button>
+            </a>
+
+            <a
+              href="        
+              C:\Users\Ayoub Hajji\Desktop\stbbank\bankdashbord.html          "
+            >
+              <button class="btn btn-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                  <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                  <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                  <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                </svg>
+                Tableau de bord
+              </button>
+            </a>
+          </nav>
+
+          <button
+            class="btn btn-ghost md:hidden text-primary"
+            id="mobile-menu-button"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-6 w-6"
+            >
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="md:hidden bg-white w-full hidden" id="mobile-menu">
+          <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+            <a href="C:\Users\Ayoub Hajji\Desktop\stbbank\index.html">
+              <button class="btn btn-primary w-full text-left justify-start">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <path
+                    d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Accueil
+              </button>
+            </a>
+
+            <a href="C:\Users\Ayoub Hajji\Desktop\stbbank\bankdashbord.html">
+              <button class="btn btn-primary w-full text-left justify-start">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                  <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                  <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                  <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                </svg>
+                Tableau de bord
+              </button>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-grow container mx-auto px-4 pt-24 pb-12">
+        <!-- Clustering Page -->
+        <section class="mt-8">
+          <div class="card-dashboard">
+            <div class="card-dashboard-content">
+              <h2
+                class="text-2xl font-medium text-white mb-6 border-b border-white/30 pb-3"
+              >
+                Modèle Clustering
+              </h2>
+
+              <div class="tabs">
+                <div class="tabs-list">
+                  <button class="tab-trigger active" data-tab="dbscan">
+                    DBSCAN
+                  </button>
+                  <button class="tab-trigger" data-tab="kmeans">K-Means</button>
+                  <button class="tab-trigger" data-tab="hierarchical">
+                    Clustering Hiérarchique
+                  </button>
+                </div>
+
+                <div class="tab-content active" id="tab-dbscan">
+                  <div class="algorithm-content">
+                    <div class="algorithm-header">
+                      <div class="algorithm-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#103962"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                          "
+                        >
+                          <path
+                            d="M2 12a5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5 5 5 0 0 0-5 5Z"
+                          ></path>
+                          <path
+                            d="M12 12a5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5 5 5 0 0 0-5 5Z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div class="algorithm-info">
+                        <h3>Résultats DBSCAN</h3>
+                        <p>
+                          Density-Based Spatial Clustering of Applications with
+                          Noise. Particulièrement efficace pour identifier des
+                          clusters de forme irrégulière et éliminer les valeurs
+                          aberrantes.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="visualization-placeholder">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mb-4"
+                      >
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        <path d="M13 13h6"></path>
+                        <path d="M16 16v-6"></path>
+                      </svg>
+                      <p class="font-medium mb-2">
+                        Visualisation des résultats de l'algorithme DBSCAN
+                      </p>
+                      <p class="text-sm text-primary/70">
+                        Ces résultats sont générés à partir du traitement dans
+                        Jupyter Notebook.<br />
+                        Des graphiques interactifs seront affichés ici après
+                        l'analyse des données.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="tab-kmeans">
+                  <div class="algorithm-content">
+                    <div class="algorithm-header">
+                      <div class="algorithm-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#103962"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"
+                          ></path>
+                          <path d="M7 17v5"></path>
+                          <path d="M17 17v5"></path>
+                          <path d="M7 2v5"></path>
+                          <path d="M17 2v5"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                          "
+                        >
+                          <line x1="12" y1="20" x2="12" y2="10"></line>
+                          <line x1="18" y1="20" x2="18" y2="4"></line>
+                          <line x1="6" y1="20" x2="6" y2="16"></line>
+                        </svg>
+                      </div>
+                      <div class="algorithm-info">
+                        <h3>Résultats K-Means</h3>
+                        <p>
+                          Algorithme de partitionnement qui divise un ensemble
+                          de données en K groupes distincts. Idéal pour la
+                          segmentation de clients et l'analyse de marché.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="visualization-placeholder">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mb-4"
+                      >
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        <path d="M13 13h6"></path>
+                        <path d="M16 16v-6"></path>
+                      </svg>
+                      <p class="font-medium mb-2">
+                        Visualisation des résultats de l'algorithme K-Means
+                      </p>
+                      <p class="text-sm text-primary/70">
+                        Ces résultats sont générés à partir du traitement dans
+                        Jupyter Notebook.<br />
+                        Des graphiques interactifs seront affichés ici après
+                        l'analyse des données.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-content" id="tab-hierarchical">
+                  <div class="algorithm-content">
+                    <div class="algorithm-header">
+                      <div class="algorithm-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="48"
+                          height="48"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#103962"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M7 18V7a5 5 0 0 1 10 0v11"></path>
+                          <path d="M2 8h5"></path>
+                          <path d="M17 8h5"></path>
+                          <path d="M2 12h7"></path>
+                          <path d="M15 12h7"></path>
+                          <path d="M2 16h7"></path>
+                          <path d="M15 16h7"></path>
+                        </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                          "
+                        >
+                          <path d="M7 7 H 17 M 7 12 H 17 M 7 17 H 17"></path>
+                        </svg>
+                      </div>
+                      <div class="algorithm-info">
+                        <h3>Résultats Clustering Hiérarchique</h3>
+                        <p>
+                          Crée une hiérarchie de clusters sous forme
+                          d'arborescence. Particulièrement utile pour visualiser
+                          les relations entre les groupes à différents niveaux
+                          de granularité.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="visualization-placeholder">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="mb-4"
+                      >
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        <path d="M13 13h6"></path>
+                        <path d="M16 16v-6"></path>
+                      </svg>
+                      <p class="font-medium mb-2">
+                        Visualisation des résultats de l'algorithme Clustering
+                        Hiérarchique
+                      </p>
+                      <p class="text-sm text-primary/70">
+                        Ces résultats sont générés à partir du traitement dans
+                        Jupyter Notebook.<br />
+                        Des graphiques interactifs seront affichés ici après
+                        l'analyse des données.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="bg-white text-primary py-4 mt-auto border-t border-primary"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <p>© 2025 Banque STB. Tous droits réservés.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Simple JavaScript for mobile menu toggle and tabs
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // Tabs functionality
+        const tabTriggers = document.querySelectorAll(".tab-trigger");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", function () {
+            // Remove active class from all triggers and contents
+            tabTriggers.forEach((t) => t.classList.remove("active"));
+            tabContents.forEach((c) => c.classList.remove("active"));
+
+            // Add active class to clicked trigger
+            this.classList.add("active");
+
+            // Show corresponding content
+            const tabId = "tab-" + this.getAttribute("data-tab");
+            document.getElementById(tabId).classList.add("active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

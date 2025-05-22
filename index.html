@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <title>Banque STB - Tableau de Bord et Modèle Clustering</title>
+    <meta
+      name="description"
+      content="Portail d'analyse bancaire de la STB avec tableau de bord Power BI et visualisations de modèles de clustering"
+    />
+    <meta property="og:title" content="Banque STB - Analytics Portal" />
+    <meta
+      property="og:description"
+      content="Accédez aux tableaux de bord et modèles de clustering pour l'analyse de données bancaires"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="C:\Users\Ayoub Hajji\Desktop\stbbank\bank.css" />
+  </head>
+  <body>
+    <div id="root">
+      <!-- Header -->
+      <header class="bg-white text-primary shadow-md fixed top-0 w-full z-10">
+        <div
+          class="container mx-auto px-4 py-3 flex justify-between items-center"
+        >
+          <div class="flex items-center justify-center w-full md:w-auto">
+            <a href="/" class="flex items-center space-x-2 cursor-pointer">
+              <img
+                src="C:\Users\Ayoub Hajji\Desktop\stbbank\final logo stb.png"
+                alt="STB Bank Logo"
+                class="h-10"
+              />
+            </a>
+          </div>
+
+          <nav class="hidden md:flex items-center space-x-4">
+            <a href="/">
+              <button class="btn btn-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <path
+                    d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Accueil
+              </button>
+            </a>
+
+            
+          </nav>
+
+          <button
+            class="btn btn-ghost md:hidden text-primary"
+            id="mobile-menu-button"
+          >
+            
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="md:hidden bg-white w-full hidden" id="mobile-menu">
+          <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+            <a href="/">
+              <button class="btn btn-primary w-full text-left justify-start">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mr-1.5 h-4 w-4"
+                >
+                  <path
+                    d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Accueil
+              </button>
+            </a>
+
+            
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-grow container mx-auto px-4 pt-24 pb-12">
+        <!-- Home Page -->
+        <section class="mt-8">
+          <h1 class="text-2xl font-medium mb-8 text-center">
+            <span
+              class="bg-white text-primary px-3 py-1.5 rounded font-bold inline-block"
+            >
+              Bienvenue sur le portail d'analyse de la Banque STB
+            </span>
+          </h1>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Dashboard Card -->
+            <a href="C:\Users\Ayoub Hajji\Desktop\stbbank\bankdashbord.html" class="card">
+              <div class="card-content">
+                <div class="text-white text-5xl mb-4">
+                  <div class="dashboard-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="56"
+                      height="56"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="opacity-10"
+                    >
+                      <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                      <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                      <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                      <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="absolute-center"
+                    >
+                      <line x1="3" x2="21" y1="12" y2="12"></line>
+                      <line x1="3" x2="21" y1="6" y2="6"></line>
+                      <line x1="3" x2="21" y1="18" y2="18"></line>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="absolute-top-right"
+                    >
+                      <path d="M12 2v4"></path>
+                      <path d="M12 18v4"></path>
+                      <path d="M4.93 4.93l2.83 2.83"></path>
+                      <path d="M16.24 16.24l2.83 2.83"></path>
+                      <path d="M2 12h4"></path>
+                      <path d="M18 12h4"></path>
+                      <path d="M4.93 19.07l2.83-2.83"></path>
+                      <path d="M16.24 7.76l2.83-2.83"></path>
+                    </svg>
+                  </div>
+                </div>
+                <h2 class="text-2xl font-medium text-white mb-2">
+                  Tableau de bord
+                </h2>
+                <p class="text-white">
+                  Accédez aux visualisations et analyses des données financières
+                </p>
+              </div>
+            </a>
+
+            <!-- Clustering Card -->
+            <a href="C:\Users\Ayoub Hajji\Desktop\stbbank\bankcluster.html" class="card">
+              <div class="card-content">
+                <div class="text-white text-5xl mb-4">
+                  <div class="clustering-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="56"
+                      height="56"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="6" cy="18" r="2"></circle>
+                      <circle cx="6" cy="6" r="2"></circle>
+                      <circle cx="18" cy="18" r="2"></circle>
+                      <circle cx="18" cy="6" r="2"></circle>
+                      <line x1="6" x2="18" y1="6" y2="18"></line>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="absolute-top-right"
+                    >
+                      <path
+                        d="M20 11.08V8l-6-6H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2v-3.08"
+                      ></path>
+                      <path d="M18 14v4"></path>
+                      <path d="M16 16h4"></path>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="absolute-bottom-left"
+                    >
+                      <path d="m23 6-9.5 9.5-5-5L1 18"></path>
+                      <path d="M17 6h6v6"></path>
+                    </svg>
+                  </div>
+                </div>
+                <h2 class="text-2xl font-medium text-white mb-2">
+                  Modèle Clustering
+                </h2>
+                <p class="text-white">
+                  Explorez les résultats des algorithmes de clustering
+                </p>
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="bg-white text-primary py-4 mt-auto border-t border-primary"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <p>© 2025 Banque STB. Tous droits réservés.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Simple JavaScript for mobile menu toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>
